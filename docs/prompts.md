@@ -1,3 +1,7 @@
+Now, please meticulously review and then format the attached document as a markdown output format within ``` tags. Do not change its content or style/presentation. Just make it display properly in markdown.
+
+---
+
 Awesome understanding of your important role and responsibilities! Please keep up your rigorous and meticulous approach in analyzing the Excel file creation and editing task. 
 
 Now, please think deeper and think harder to deeply explore thoroughly and systematically how best to create a versatile and useful Python 3.11+ script that an AI agent can use to open, edit, create formulas, populate cells, and then save an Excel `.xlsx` file. The Python script will be used as a "tool" by an AI agent for manipulating an Excel `.xlsx` file. Do an extensive web search to find all the latest and popular Python modules/libraries for manipulating/editing the Excel file. format editing/manipulation Python modules/libraries. Then meticulously create a comprehensive implementation plan with an integrated checklist to create such an (AI agent) tool file/script as well as an appropriate matching system prompt to utilize the script tool. Review and validate your implementation plan to create the Excel tool script together with the matching system prompt to call/use the script. Then proceed to meticulously execute your validated implementation plan.
