@@ -2,3 +2,4 @@
 export { PublicInvoiceHeader } from './PublicInvoiceHeader'
 export { PublicInvoiceLineItems } from './PublicInvoiceLineItems'
 export { PublicInvoiceTotals } from './PublicInvoiceTotals'
+export { PaymentModal } from './PaymentModal'
