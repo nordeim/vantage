@@ -21,6 +21,16 @@ import {
   TrendingUp, 
   AlertTriangle 
 } from "lucide-react"
+import type { DashboardMetrics, Invoice, RecentActivity } from "@/lib/types"
+
+interface DashboardProps {
+  /** Dashboard metrics from backend (optional - falls back to mock) */
+  metrics?: DashboardMetrics
+  /** Recent invoices from backend (optional - falls back to mock) */
+  invoices?: Invoice[]
+  /** Recent activities from backend (optional - falls back to mock) */
+  activities?: RecentActivity[]
+}
 
 /**
  * Dashboard Page — Financial pulse and quick actions
@@ -30,7 +40,16 @@ import {
  * - Metrics Grid: 4 columns desktop, 2 tablet, 1 mobile
  * - Two-column layout: Recent Invoices | Activity Feed
  */
-export default function Dashboard() {
+export default function Dashboard({ 
+  metrics: propsMetrics,
+  invoices: propsInvoices,
+  activities: propsActivities 
+}: DashboardProps) {
+  // Use props if provided, otherwise fall back to mock data
+  const metrics = propsMetrics || mockDashboardMetrics
+  const allInvoices = propsInvoices || mockInvoices
+  const activities = propsActivities || mockRecentActivity
+
   // Format today's date
   const today = new Date().toLocaleDateString('en-SG', {
     weekday: 'long',
@@ -40,13 +59,13 @@ export default function Dashboard() {
   })
 
   // Sort invoices by date (most recent first) for display
-  const recentInvoices = [...mockInvoices].sort(
+  const recentInvoices = [...allInvoices].sort(
     (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
   )
 
   // Count invoices by status for subtext
-  const pendingCount = mockInvoices.filter(inv => inv.status === 'pending').length
-  const overdueCount = mockInvoices.filter(inv => inv.status === 'overdue').length
+  const pendingCount = allInvoices.filter(inv => inv.status === 'pending').length
+  const overdueCount = allInvoices.filter(inv => inv.status === 'overdue').length
   const outstandingCount = pendingCount + overdueCount
 
   return (
@@ -70,7 +89,7 @@ export default function Dashboard() {
         {/* Outstanding */}
         <MetricCard
           label="Outstanding"
-          value={formatCurrency(mockDashboardMetrics.totalOutstanding)}
+          value={formatCurrency(metrics.totalOutstanding)}
           subtext={`${outstandingCount} invoice${outstandingCount !== 1 ? 's' : ''}`}
           icon={DollarSign}
         />
@@ -78,7 +97,7 @@ export default function Dashboard() {
         {/* Paid This Month */}
         <MetricCard
           label="Paid (Month)"
-          value={formatCurrency(mockDashboardMetrics.totalPaidThisMonth)}
+          value={formatCurrency(metrics.totalPaidThisMonth)}
           trend={{
             value: "12%",
             direction: "up",
@@ -90,7 +109,7 @@ export default function Dashboard() {
         {/* Paid YTD */}
         <MetricCard
           label="Paid (YTD)"
-          value={formatCurrency(mockDashboardMetrics.totalPaidYTD)}
+          value={formatCurrency(metrics.totalPaidYTD)}
           icon={DollarSign}
           variant="success"
         />
@@ -98,8 +117,8 @@ export default function Dashboard() {
         {/* Overdue */}
         <MetricCard
           label="Overdue"
-          value={formatCurrency(mockDashboardMetrics.overdueAmount)}
-          subtext={`${mockDashboardMetrics.overdueCount} invoice${mockDashboardMetrics.overdueCount !== 1 ? 's' : ''}`}
+          value={formatCurrency(metrics.overdueAmount)}
+          subtext={`${metrics.overdueCount} invoice${metrics.overdueCount !== 1 ? 's' : ''}`}
           variant="danger"
           icon={AlertTriangle}
         />
@@ -111,7 +130,7 @@ export default function Dashboard() {
         <RecentInvoices invoices={recentInvoices} limit={4} />
 
         {/* Activity Feed */}
-        <ActivityFeed activities={mockRecentActivity} limit={5} />
+        <ActivityFeed activities={activities} limit={5} />
       </div>
     </AppLayout>
   )
