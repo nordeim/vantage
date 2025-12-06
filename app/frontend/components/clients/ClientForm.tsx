@@ -234,25 +234,38 @@ function FormField({
   hint,
   children 
 }: FormFieldProps) {
+  const inputId = name
+  const hintId = hint ? `${name}-hint` : undefined
+  const errorId = error ? `${name}-error` : undefined
+  const describedBy = [hintId, errorId].filter(Boolean).join(' ') || undefined
+
   return (
     <div className="space-y-2">
-      <Label htmlFor={name} className="flex items-center gap-1">
+      <Label htmlFor={inputId} className="flex items-center gap-1">
         {label}
         {required && (
           <span className="text-rose-500" aria-hidden="true">*</span>
         )}
+        {required && (
+          <span className="sr-only">(required)</span>
+        )}
       </Label>
       
-      {children}
+      {/* Clone children to add aria-describedby */}
+      {React.cloneElement(children as React.ReactElement, {
+        id: inputId,
+        'aria-describedby': describedBy,
+        'aria-required': required,
+      })}
       
       {hint && !error && (
-        <p className="text-xs text-slate-500 dark:text-slate-400">
+        <p id={hintId} className="text-xs text-slate-500 dark:text-slate-400">
           {hint}
         </p>
       )}
       
       {error && (
-        <p className="text-xs text-rose-600 dark:text-rose-400" role="alert">
+        <p id={errorId} className="text-xs text-rose-600 dark:text-rose-400" role="alert">
           {error}
         </p>
       )}
