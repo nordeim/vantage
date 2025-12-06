@@ -223,7 +223,12 @@ interface FormFieldProps {
   required?: boolean
   error?: string
   hint?: string
-  children: React.ReactNode
+  children: React.ReactElement<{
+    id?: string
+    'aria-describedby'?: string
+    'aria-required'?: boolean
+    'aria-invalid'?: boolean
+  }>
 }
 
 function FormField({ 
@@ -239,24 +244,29 @@ function FormField({
   const errorId = error ? `${name}-error` : undefined
   const describedBy = [hintId, errorId].filter(Boolean).join(' ') || undefined
 
+  // Type-safe clone with proper typing
+  const enhancedChild = React.isValidElement(children)
+    ? React.cloneElement(children, {
+        id: inputId,
+        'aria-describedby': describedBy || undefined,
+        'aria-required': required || undefined,
+        'aria-invalid': !!error || undefined,
+      })
+    : children
+
   return (
     <div className="space-y-2">
       <Label htmlFor={inputId} className="flex items-center gap-1">
         {label}
         {required && (
-          <span className="text-rose-500" aria-hidden="true">*</span>
-        )}
-        {required && (
-          <span className="sr-only">(required)</span>
+          <>
+            <span className="text-rose-500" aria-hidden="true">*</span>
+            <span className="sr-only">(required)</span>
+          </>
         )}
       </Label>
       
-      {/* Clone children to add aria-describedby */}
-      {React.cloneElement(children as React.ReactElement, {
-        id: inputId,
-        'aria-describedby': describedBy,
-        'aria-required': required,
-      })}
+      {enhancedChild}
       
       {hint && !error && (
         <p id={hintId} className="text-xs text-slate-500 dark:text-slate-400">
