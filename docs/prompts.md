@@ -1,3 +1,7 @@
+Awesome understanding! Now, please meticulously review and analyze the "Project Requirements Document" v4.1 + patch to v4.2, to have a deep understanding of the WHAT, WHY and HOW of the project and its codebase design and architecture.
+
+---
+
 Now, please meticulously review and then format the attached document as a markdown output format within ``` tags. Do not change its content or style/presentation. Just make it display properly in markdown.
 
 ---
