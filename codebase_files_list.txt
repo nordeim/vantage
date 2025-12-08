@@ -8,7 +8,6 @@ app/controllers/clients_controller.rb
 app/controllers/dashboard_controller.rb
 app/controllers/invoices_controller.rb
 app/frontend/pages/Dashboard.tsx
-app/frontend/pages/Dashboard.tsx.1
 app/frontend/pages/Clients/Index.tsx
 app/frontend/pages/PublicInvoice/Show.tsx
 app/frontend/pages/Dashboard.tsx.test
