@@ -6,7 +6,7 @@
 <div align="center">
 
 [![Ruby on Rails 8](https://img.shields.io/badge/Ruby%20on%20Rails-8.0-CC0000?style=for-the-badge&logo=rubyonrails&logoColor=white)](https://rubyonrails.org)
-[![React 19](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=white)](https://react.dev)
+[![React 18](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=white)](https://reactjs.org)
 [![Tailwind CSS v4](https://img.shields.io/badge/Tailwind_CSS-v4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
@@ -138,7 +138,7 @@ stateDiagram-v2
 | :--- | :--- | :--- |
 | **Backend** | Ruby on Rails 8.x | **Stability + Productivity** - Convention over configuration, SQLite production-ready |
 | **Frontend Bridge** | Inertia.js (Rails) | **SPA Experience, Monolithic Simplicity** - No separate API layer, server-side rendering benefits |
-| **UI Framework** | React 19 + TypeScript 5.9 | **Type Safety + Component Architecture** - Predictable UI with strong typing |
+| **UI Framework** | React 18 + TypeScript 5.9 | **Type Safety + Component Architecture** - Predictable UI with strong typing |
 | **Styling** | Tailwind CSS v4 | **Design System in CSS** - Utility-first with CSS-native theme configuration |
 | **Components** | ShadCN-style Radix primitives | **Accessible Primitives** - Unstyled, fully customizable, no vendor lock-in |
 | **Icons** | Lucide React | **Consistency + Clarity** - Unified stroke width, clean aesthetic |

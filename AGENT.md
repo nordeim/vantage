@@ -11,8 +11,8 @@ InvoiceForge is a single-user invoicing application prioritizing "Neo-Editorial 
 - **Shell/Layouts**: ✅ Complete (Sidebar, MobileNav, ThemeToggle).
 - **Dashboard**: ✅ Complete (Metrics, ActivityFeed).
 - **Clients**: ✅ Complete (Index, Search, Sheet Form).
-- **Invoices**: ⚠️ Mixed Status.
-    - `Index.tsx`: Stub/Placeholder (Needs implementation).
+- **Invoices**: ✅ Mixed Status.
+    - `Index.tsx`: ✅ Complete.
     - `Edit.tsx` / `LineItemsEditor.tsx`: **Surprisingly Complete**. Core complex logic for editing lines is largely done.
 - **Backend Setup**: Basic routes exist (`index` only).
 - **Patches Applied**: Day 3 CSS additions (Radix animations, slide-out classes) are applied.
