@@ -1,4 +1,5 @@
-# InvoiceForge
+<img width="1024" height="1536" alt="image" src="https://github.com/user-attachments/assets/976f9dab-6049-4d9f-b450-0eb5893649ad" />
+
 
 > **Precision invoicing for the solo professional.**  
 > Where Swiss utility meets editorial boldness.
