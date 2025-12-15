@@ -11,14 +11,14 @@ InvoiceForge is a single-user invoicing application prioritizing "Neo-Editorial 
 **Current State**:
 - **Phase 1 (Frontend)**: ✅ Complete
   - Shell/Layouts, Dashboard, Clients, Invoices List, Invoice Editor, Public Invoice, Accessibility
-- **Phase 2 (Backend)**: ⚙️ In Progress
+- **Phase 2 (Backend)**: ✅ Complete
   - Database (PostgreSQL v16 with Docker): ✅ Complete
   - Authentication (Devise): ✅ Complete
   - Models (Client, Invoice, LineItem, User): ✅ Complete
   - Controllers (Dashboard, Clients, Invoices): ✅ Complete
   - Email (InvoiceMailer wired to actions): ✅ Complete
   - PDF Generation (Prawn): ✅ Complete
-  - Stripe Integration: ❌ Pending
+  - Stripe Integration: ✅ Complete
 
 ## 2. Technical Architecture & Standards
 
@@ -115,7 +115,8 @@ open http://localhost:3000
 # Login: admin@invoiceforge.app / password123
 ```
 
-## 6. Next Steps (Phase 2 Remaining)
+## 6. Next Steps (Phase 3)
 
-1. **Real Payment Integration**: Stripe Elements or Checkout
-2. **Frontend Send Button**: Wire up "Send Invoice" button to call send_invoice action
+1. **Deploy to Production**: Set up production environment
+2. **Configure Stripe Webhook**: Add webhook URL in Stripe Dashboard
+3. **Testing**: End-to-end testing of payment flow

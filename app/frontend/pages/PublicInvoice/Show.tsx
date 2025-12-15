@@ -1,5 +1,5 @@
 // app/frontend/pages/PublicInvoice/Show.tsx
-import { useState, useCallback } from "react"
+import { useCallback } from "react"
 import { Head } from "@inertiajs/react"
 import { PublicLayout } from "@/layouts/PublicLayout"
 import {
@@ -9,10 +9,9 @@ import {
   PublicInvoiceTotals,
   PublicInvoiceNotes,
 } from "@/components/public-invoice"
-import { PaymentModal } from "@/components/public-invoice/PaymentModal"
 import { Button } from "@/components/ui/button"
 import { Printer, CreditCard, Download } from "lucide-react"
-import { cn, formatCurrency } from "@/lib/utils"
+import { formatCurrency } from "@/lib/utils"
 import type { LineItem } from "@/lib/types"
 
 interface PublicInvoiceShowProps {
@@ -57,8 +56,6 @@ interface PublicInvoiceShowProps {
  * Note: This page uses light theme only for professional appearance
  */
 export default function PublicInvoiceShow({ invoice }: PublicInvoiceShowProps) {
-  const [paymentModalOpen, setPaymentModalOpen] = useState(false)
-
   // Determine if payment is possible
   const canPay = ['pending', 'overdue'].includes(invoice.status)
   const isPaid = invoice.status === 'paid'
@@ -66,15 +63,6 @@ export default function PublicInvoiceShow({ invoice }: PublicInvoiceShowProps) {
   // Handle print
   const handlePrint = useCallback(() => {
     window.print()
-  }, [])
-
-  // Handle payment completion (would reload page in real app)
-  const handlePaymentComplete = useCallback(() => {
-    // In production, this would redirect or reload to show updated status
-    setTimeout(() => {
-      setPaymentModalOpen(false)
-      // window.location.reload()
-    }, 2000)
   }, [])
 
   // Transform line items to expected format
@@ -132,16 +120,18 @@ export default function PublicInvoiceShow({ invoice }: PublicInvoiceShowProps) {
 
         {/* Action Buttons (hidden in print) */}
         <div className="mt-6 flex flex-col sm:flex-row gap-3 print:hidden">
-          {/* Pay Now Button (only for unpaid invoices) */}
+          {/* Pay Now Button - redirects to Stripe Checkout */}
           {canPay && (
-            <Button
-              size="lg"
-              className="flex-1 sm:flex-none h-12 text-base gap-2"
-              onClick={() => setPaymentModalOpen(true)}
-            >
-              <CreditCard className="h-5 w-5" />
-              Pay {formatCurrency(invoice.total)}
-            </Button>
+            <form action={`/pay/${invoice.token}`} method="POST">
+              <Button
+                type="submit"
+                size="lg"
+                className="flex-1 sm:flex-none h-12 text-base gap-2 w-full sm:w-auto"
+              >
+                <CreditCard className="h-5 w-5" />
+                Pay {formatCurrency(invoice.total)}
+              </Button>
+            </form>
           )}
 
           {/* Paid Status Button (disabled, informational) */}
@@ -183,15 +173,6 @@ export default function PublicInvoiceShow({ invoice }: PublicInvoiceShowProps) {
             </a>
           </Button>
         </div>
-
-        {/* Payment Modal */}
-        <PaymentModal
-          open={paymentModalOpen}
-          onOpenChange={setPaymentModalOpen}
-          invoiceNumber={invoice.invoiceNumber}
-          amount={invoice.total}
-          onPaymentComplete={handlePaymentComplete}
-        />
       </PublicLayout>
     </>
   )

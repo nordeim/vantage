@@ -44,4 +44,18 @@ Rails.application.routes.draw do
   
   # Public PDF download (no auth required)
   get "i/:token/download", to: "public_invoices#download_pdf", as: :public_invoice_download
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # PAYMENT ROUTES (Stripe Checkout)
+  # ═══════════════════════════════════════════════════════════════════════════
+  
+  # Initiate payment - redirects to Stripe Checkout
+  post "pay/:token", to: "payments#create_checkout", as: :pay_invoice
+  
+  # Payment result redirects
+  get "pay/:token/success", to: "payments#success", as: :success_payment
+  get "pay/:token/cancel", to: "payments#cancel", as: :cancel_payment
+  
+  # Stripe webhook endpoint
+  post "webhooks/stripe", to: "payments#webhook"
 end

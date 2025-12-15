@@ -338,7 +338,7 @@ end
 | **Migrations** | ✅ Complete | Full schema matching TypeScript types |
 | **Controllers** | ✅ Complete | All CRUD + send_invoice, mark_paid with email |
 | **Authentication** | ✅ Complete | Devise with session-based auth |
-| **Payments** | ❌ Pending | Mock PaymentModal exists, Stripe integration needed |
+| **Payments** | ✅ Complete | Stripe Checkout Sessions + Webhooks |
 | **PDF Generation** | ✅ Complete | Prawn-based InvoicePdfGenerator service |
 | **Email** | ✅ Complete | InvoiceMailer wired to send_invoice, mark_paid |
 
@@ -346,14 +346,22 @@ end
 
 ## 5. Phase 2 Remaining Work
 
-### 5.1 Priority Order
+### 5.1 Phase 2 Status: ✅ Complete
 
-1. **Stripe Integration** (High Priority)
-   - Replace mock PaymentModal with Stripe Elements or Checkout
-   - Webhook handling for payment status
+All Phase 2 items have been implemented:
+- Stripe Checkout integration with webhook handling
+- InvoicesController with full CRUD and status actions
+- Email wiring to send_invoice and mark_paid actions
 
-2. **Frontend Send Button** (Low Priority)
-   - Wire "Send Invoice" button in Edit.tsx to call send_invoice action
+### 5.2 Next Steps (Phase 3)
+
+1. **Production Deployment**
+   - Configure production environment
+   - Set up Stripe webhook URL in Dashboard
+
+2. **End-to-End Testing**
+   - Full payment flow testing
+   - Email delivery verification
 
 ### 5.2 Known Limitations
 
