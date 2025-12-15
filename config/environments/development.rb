@@ -28,10 +28,15 @@ Rails.application.configure do
   config.active_record.verbose_query_logs = true
   config.active_record.query_log_tags_enabled = true
 
-  # Action Mailer - use letter_opener to preview emails
+  # Action Mailer - use MailHog for email testing
+  # MailHog Web UI: http://localhost:8025
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.perform_caching = false
-  config.action_mailer.delivery_method = :letter_opener
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: ENV.fetch('MAILHOG_HOST', 'localhost'),
+    port: ENV.fetch('MAILHOG_PORT', 1025).to_i
+  }
   config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
 
   # Annotate rendered view with file names

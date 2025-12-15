@@ -1,5 +1,5 @@
 # InvoiceForge Docker Compose Configuration
-# PostgreSQL 16 Alpine + Rails 8 Development Environment
+# PostgreSQL 16 Alpine + MailHog Development Environment
 #
 # Usage:
 #   docker-compose up -d        # Start all services in background
@@ -9,6 +9,8 @@
 #
 # Database Admin:
 #   docker-compose exec db psql -U invoiceforge -d invoiceforge_development
+#
+# MailHog Web UI: http://localhost:8025
 
 services:
   # ═══════════════════════════════════════════════════════════════════════════
@@ -18,31 +20,45 @@ services:
     image: postgres:16-alpine
     container_name: invoiceforge_db
     restart: unless-stopped
-    
+
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-invoiceforge}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-invoiceforge_dev_password}
       POSTGRES_DB: ${POSTGRES_DB:-invoiceforge_development}
-    
+
     ports:
       - "${POSTGRES_PORT:-5432}:5432"
-    
+
     volumes:
       # Persist data between container restarts
       - postgres_data:/var/lib/postgresql/data
       # Optional: Mount init scripts
       - ./docker/init-db:/docker-entrypoint-initdb.d:ro
-    
+
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-invoiceforge} -d ${POSTGRES_DB:-invoiceforge_development}"]
+      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-invoiceforge} -d ${POSTGRES_DB:-invoiceforge_development}" ]
       interval: 10s
       timeout: 5s
       retries: 5
       start_period: 10s
-    
+
     networks:
       - invoiceforge_network
 
+  # ═══════════════════════════════════════════════════════════════════════════
+  # MailHog - Email Testing Service
+  # ═══════════════════════════════════════════════════════════════════════════
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: invoiceforge_mailhog
+    restart: unless-stopped
+
+    ports:
+      - "1025:1025" # SMTP server
+      - "8025:8025" # Web UI
+
+    networks:
+      - invoiceforge_network
   # ═══════════════════════════════════════════════════════════════════════════
   # Rails Application (Optional - for full Docker deployment)
   # ═══════════════════════════════════════════════════════════════════════════
@@ -73,9 +89,9 @@ services:
   #   networks:
   #     - invoiceforge_network
 
-# ═══════════════════════════════════════════════════════════════════════════
-# Named Volumes
-# ═══════════════════════════════════════════════════════════════════════════
+  # ═══════════════════════════════════════════════════════════════════════════
+  # Named Volumes
+  # ═══════════════════════════════════════════════════════════════════════════
 volumes:
   postgres_data:
     driver: local
@@ -84,9 +100,9 @@ volumes:
   # node_modules:
   #   driver: local
 
-# ═══════════════════════════════════════════════════════════════════════════
-# Networks
-# ═══════════════════════════════════════════════════════════════════════════
+  # ═══════════════════════════════════════════════════════════════════════════
+  # Networks
+  # ═══════════════════════════════════════════════════════════════════════════
 networks:
   invoiceforge_network:
     driver: bridge
