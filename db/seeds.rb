@@ -4,6 +4,22 @@
 
 puts "Seeding database..."
 
+# ═══════════════════════════════════════════════════════════════════════════
+# DEFAULT ADMIN USER
+# ═══════════════════════════════════════════════════════════════════════════
+
+puts "Creating default admin user..."
+
+# Create or update the default admin user
+admin = User.find_or_initialize_by(email: 'admin@invoiceforge.app')
+admin.password = 'password123'
+admin.password_confirmation = 'password123'
+admin.name = 'Admin User'
+admin.company_name = 'InvoiceForge Demo'
+admin.save!
+
+puts "Admin user created: admin@invoiceforge.app / password123"
+
 # Clear existing data (be careful in production!)
 LineItem.destroy_all
 Invoice.destroy_all
@@ -105,7 +121,12 @@ Invoice.find_each(&:recalculate_totals!)
 puts "\nSeeding complete!"
 puts "=" * 50
 puts "Summary:"
+puts "  Users: #{User.count}"
 puts "  Clients: #{Client.count}"
 puts "  Invoices: #{Invoice.count}"
 puts "  Line Items: #{LineItem.count}"
+puts ""
+puts "Login credentials:"
+puts "  Email: admin@invoiceforge.app"
+puts "  Password: password123"
 puts "=" * 50

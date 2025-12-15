@@ -1,13 +1,13 @@
 # app/controllers/public_invoices_controller.rb
 class PublicInvoicesController < ApplicationController
-  # Skip any authentication for public invoice views
-  # skip_before_action :authenticate_user!, only: [:show]
+  # Skip authentication for public invoice views
+  skip_before_action :authenticate_user!
 
   # GET /i/:token
   def show
     @invoice = Invoice.includes(:client, :line_items).find_by!(token: params[:token])
 
-    # Optionally: Don't show draft or cancelled invoices publicly
+    # Don't show draft or cancelled invoices publicly
     if @invoice.status == 'draft'
       render inertia: 'Errors/NotFound', props: {
         message: 'This invoice is not available for viewing.'

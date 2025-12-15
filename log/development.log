@@ -210,3 +210,322 @@ FOREIGN KEY ("invoice_id")
   [1m[36mClient Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "clients" /*application='Invoiceforge'*/[0m
   [1m[36mInvoice Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "invoices" /*application='Invoiceforge'*/[0m
   [1m[36mLineItem Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "line_items" /*application='Invoiceforge'*/[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6436642604125862730) /*application='Invoiceforge'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (2.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Invoiceforge'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (2.4ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='Invoiceforge'*/[0m
+Migrating to DeviseCreateUsers (20251215000004)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='Invoiceforge'*/[0m
+  [1m[35m (132.1ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "email" character varying DEFAULT '' NOT NULL, "encrypted_password" character varying DEFAULT '' NOT NULL, "reset_password_token" character varying, "reset_password_sent_at" timestamp(6), "remember_created_at" timestamp(6), "name" character varying, "company_name" character varying, "phone" character varying, "address" text, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='Invoiceforge'*/[0m
+  [1m[35m (42.8ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email") /*application='Invoiceforge'*/[0m
+  [1m[35m (54.0ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token") /*application='Invoiceforge'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20251215000004') RETURNING "version" /*application='Invoiceforge'*/[0m
+  [1m[36mTRANSACTION (21.3ms)[0m  [1m[35mCOMMIT /*application='Invoiceforge'*/[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT pg_advisory_unlock(6436642604125862730) /*application='Invoiceforge'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Invoiceforge'*/[0m
+  [1m[35mSQL (1.9ms)[0m  [1m[35mSET search_path TO public /*application='Invoiceforge'*/[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[35mSET search_path TO "$user", public /*application='Invoiceforge'*/[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[35mSET search_path TO public /*application='Invoiceforge'*/[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[35mSET search_path TO "$user", public /*application='Invoiceforge'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (2.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Invoiceforge'*/[0m
+  [1m[36mUser Load (2.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'admin@invoiceforge.app' LIMIT 1 /*application='Invoiceforge'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN /*application='Invoiceforge'*/[0m
+  [1m[36mUser Exists? (25.8ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'admin@invoiceforge.app' LIMIT 1 /*application='Invoiceforge'*/[0m
+  [1m[36mUser Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('admin@invoiceforge.app') LIMIT 1 /*application='Invoiceforge'*/[0m
+  [1m[36mUser Create (1.5ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "name", "company_name", "phone", "address", "created_at", "updated_at") VALUES ('admin@invoiceforge.app', '$2a$12$S7NsWRUH7..zANKo7DsKBuUTDtZRICZtUXxKkqlO1rr07ckVLsIm.', NULL, NULL, NULL, 'Admin User', 'InvoiceForge Demo', NULL, NULL, '2025-12-15 01:15:30.350336', '2025-12-15 01:15:30.350336') RETURNING "id" /*application='Invoiceforge'*/[0m
+  [1m[36mTRANSACTION (14.7ms)[0m  [1m[35mCOMMIT /*application='Invoiceforge'*/[0m
+  [1m[36mLineItem Load (2.2ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" /*application='Invoiceforge'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN /*application='Invoiceforge'*/[0m
+  [1m[36mLineItem Destroy (4.9ms)[0m  [1m[31mDELETE FROM "line_items" WHERE "line_items"."id" = 1 /*application='Invoiceforge'*/[0m
+  [1m[36mInvoice Load (4.2ms)[0m  [1m[34mSELECT "invoices".* FROM "invoices" WHERE "invoices"."id" = 1 LIMIT 1 /*application='Invoiceforge'*/[0m
+  ↳ app/models/line_item.rb:69:in 'LineItem#update_invoice_totals'
+  [1m[36mLineItem Load (0.9ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 1 AND "line_items"."item_type" = 'item' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:97:in 'Invoice#recalculate_totals!'
+  [1m[36mLineItem Load (0.7ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 1 AND "line_items"."item_type" = 'discount' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:98:in 'Invoice#recalculate_totals!'
+  [1m[36mInvoice Update (0.8ms)[0m  [1m[33mUPDATE "invoices" SET "subtotal" = 6400.0, "total_discount" = 320.0, "total" = 6080.0 WHERE "invoices"."id" = 1 /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:101:in 'Invoice#recalculate_totals!'
+  [1m[36mTRANSACTION (13.4ms)[0m  [1m[35mCOMMIT /*application='Invoiceforge'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='Invoiceforge'*/[0m
+  [1m[36mLineItem Destroy (2.4ms)[0m  [1m[31mDELETE FROM "line_items" WHERE "line_items"."id" = 2 /*application='Invoiceforge'*/[0m
+  [1m[36mInvoice Load (0.7ms)[0m  [1m[34mSELECT "invoices".* FROM "invoices" WHERE "invoices"."id" = 1 LIMIT 1 /*application='Invoiceforge'*/[0m
+  ↳ app/models/line_item.rb:69:in 'LineItem#update_invoice_totals'
+  [1m[36mLineItem Load (0.7ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 1 AND "line_items"."item_type" = 'item' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:97:in 'Invoice#recalculate_totals!'
+  [1m[36mLineItem Load (0.5ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 1 AND "line_items"."item_type" = 'discount' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:98:in 'Invoice#recalculate_totals!'
+  [1m[36mInvoice Update (0.6ms)[0m  [1m[33mUPDATE "invoices" SET "subtotal" = 2800.0, "total_discount" = 320.0, "total" = 2480.0 WHERE "invoices"."id" = 1 /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:101:in 'Invoice#recalculate_totals!'
+  [1m[36mTRANSACTION (13.4ms)[0m  [1m[35mCOMMIT /*application='Invoiceforge'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='Invoiceforge'*/[0m
+  [1m[36mLineItem Destroy (2.3ms)[0m  [1m[31mDELETE FROM "line_items" WHERE "line_items"."id" = 3 /*application='Invoiceforge'*/[0m
+  [1m[36mInvoice Load (0.5ms)[0m  [1m[34mSELECT "invoices".* FROM "invoices" WHERE "invoices"."id" = 1 LIMIT 1 /*application='Invoiceforge'*/[0m
+  ↳ app/models/line_item.rb:69:in 'LineItem#update_invoice_totals'
+  [1m[36mLineItem Load (0.4ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 1 AND "line_items"."item_type" = 'item' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:97:in 'Invoice#recalculate_totals!'
+  [1m[36mLineItem Load (0.5ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 1 AND "line_items"."item_type" = 'discount' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:98:in 'Invoice#recalculate_totals!'
+  [1m[36mInvoice Update (0.5ms)[0m  [1m[33mUPDATE "invoices" SET "subtotal" = 400.0, "total_discount" = 320.0, "total" = 80.0 WHERE "invoices"."id" = 1 /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:101:in 'Invoice#recalculate_totals!'
+  [1m[36mTRANSACTION (12.6ms)[0m  [1m[35mCOMMIT /*application='Invoiceforge'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='Invoiceforge'*/[0m
+  [1m[36mLineItem Destroy (1.9ms)[0m  [1m[31mDELETE FROM "line_items" WHERE "line_items"."id" = 4 /*application='Invoiceforge'*/[0m
+  [1m[36mInvoice Load (0.5ms)[0m  [1m[34mSELECT "invoices".* FROM "invoices" WHERE "invoices"."id" = 1 LIMIT 1 /*application='Invoiceforge'*/[0m
+  ↳ app/models/line_item.rb:69:in 'LineItem#update_invoice_totals'
+  [1m[36mLineItem Load (0.4ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 1 AND "line_items"."item_type" = 'item' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:97:in 'Invoice#recalculate_totals!'
+  [1m[36mLineItem Load (0.4ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 1 AND "line_items"."item_type" = 'discount' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:98:in 'Invoice#recalculate_totals!'
+  [1m[36mInvoice Update (0.5ms)[0m  [1m[33mUPDATE "invoices" SET "subtotal" = 400.0, "total_discount" = 320.0, "total" = 80.0 WHERE "invoices"."id" = 1 /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:101:in 'Invoice#recalculate_totals!'
+  [1m[36mTRANSACTION (5.9ms)[0m  [1m[35mCOMMIT /*application='Invoiceforge'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='Invoiceforge'*/[0m
+  [1m[36mLineItem Destroy (2.0ms)[0m  [1m[31mDELETE FROM "line_items" WHERE "line_items"."id" = 5 /*application='Invoiceforge'*/[0m
+  [1m[36mInvoice Load (0.4ms)[0m  [1m[34mSELECT "invoices".* FROM "invoices" WHERE "invoices"."id" = 1 LIMIT 1 /*application='Invoiceforge'*/[0m
+  ↳ app/models/line_item.rb:69:in 'LineItem#update_invoice_totals'
+  [1m[36mLineItem Load (0.9ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 1 AND "line_items"."item_type" = 'item' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:97:in 'Invoice#recalculate_totals!'
+  [1m[36mLineItem Load (0.7ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 1 AND "line_items"."item_type" = 'discount' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:98:in 'Invoice#recalculate_totals!'
+  [1m[36mInvoice Update (0.7ms)[0m  [1m[33mUPDATE "invoices" SET "subtotal" = 0.0, "total_discount" = 320.0, "total" = -320.0 WHERE "invoices"."id" = 1 /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:101:in 'Invoice#recalculate_totals!'
+  [1m[36mTRANSACTION (5.5ms)[0m  [1m[35mCOMMIT /*application='Invoiceforge'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN /*application='Invoiceforge'*/[0m
+  [1m[36mLineItem Destroy (2.5ms)[0m  [1m[31mDELETE FROM "line_items" WHERE "line_items"."id" = 6 /*application='Invoiceforge'*/[0m
+  [1m[36mInvoice Load (0.8ms)[0m  [1m[34mSELECT "invoices".* FROM "invoices" WHERE "invoices"."id" = 1 LIMIT 1 /*application='Invoiceforge'*/[0m
+  ↳ app/models/line_item.rb:69:in 'LineItem#update_invoice_totals'
+  [1m[36mLineItem Load (0.8ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 1 AND "line_items"."item_type" = 'item' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:97:in 'Invoice#recalculate_totals!'
+  [1m[36mLineItem Load (0.7ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 1 AND "line_items"."item_type" = 'discount' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:98:in 'Invoice#recalculate_totals!'
+  [1m[36mInvoice Update (0.8ms)[0m  [1m[33mUPDATE "invoices" SET "subtotal" = 0.0, "total_discount" = 0.0, "total" = 0.0 WHERE "invoices"."id" = 1 /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:101:in 'Invoice#recalculate_totals!'
+  [1m[36mTRANSACTION (48.7ms)[0m  [1m[35mCOMMIT /*application='Invoiceforge'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN /*application='Invoiceforge'*/[0m
+  [1m[36mLineItem Destroy (2.6ms)[0m  [1m[31mDELETE FROM "line_items" WHERE "line_items"."id" = 7 /*application='Invoiceforge'*/[0m
+  [1m[36mInvoice Load (0.5ms)[0m  [1m[34mSELECT "invoices".* FROM "invoices" WHERE "invoices"."id" = 2 LIMIT 1 /*application='Invoiceforge'*/[0m
+  ↳ app/models/line_item.rb:69:in 'LineItem#update_invoice_totals'
+  [1m[36mLineItem Load (0.6ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 2 AND "line_items"."item_type" = 'item' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:97:in 'Invoice#recalculate_totals!'
+  [1m[36mLineItem Load (0.4ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 2 AND "line_items"."item_type" = 'discount' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:98:in 'Invoice#recalculate_totals!'
+  [1m[36mInvoice Update (0.4ms)[0m  [1m[33mUPDATE "invoices" SET "subtotal" = 0.0, "total_discount" = 0.0, "total" = 0.0 WHERE "invoices"."id" = 2 /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:101:in 'Invoice#recalculate_totals!'
+  [1m[36mTRANSACTION (15.1ms)[0m  [1m[35mCOMMIT /*application='Invoiceforge'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN /*application='Invoiceforge'*/[0m
+  [1m[36mLineItem Destroy (2.7ms)[0m  [1m[31mDELETE FROM "line_items" WHERE "line_items"."id" = 8 /*application='Invoiceforge'*/[0m
+  [1m[36mInvoice Load (0.6ms)[0m  [1m[34mSELECT "invoices".* FROM "invoices" WHERE "invoices"."id" = 3 LIMIT 1 /*application='Invoiceforge'*/[0m
+  ↳ app/models/line_item.rb:69:in 'LineItem#update_invoice_totals'
+  [1m[36mLineItem Load (0.6ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 3 AND "line_items"."item_type" = 'item' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:97:in 'Invoice#recalculate_totals!'
+  [1m[36mLineItem Load (0.7ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 3 AND "line_items"."item_type" = 'discount' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:98:in 'Invoice#recalculate_totals!'
+  [1m[36mInvoice Update (0.7ms)[0m  [1m[33mUPDATE "invoices" SET "subtotal" = 0.0, "total_discount" = 0.0, "total" = 0.0 WHERE "invoices"."id" = 3 /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:101:in 'Invoice#recalculate_totals!'
+  [1m[36mTRANSACTION (9.0ms)[0m  [1m[35mCOMMIT /*application='Invoiceforge'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN /*application='Invoiceforge'*/[0m
+  [1m[36mLineItem Destroy (3.6ms)[0m  [1m[31mDELETE FROM "line_items" WHERE "line_items"."id" = 9 /*application='Invoiceforge'*/[0m
+  [1m[36mInvoice Load (0.7ms)[0m  [1m[34mSELECT "invoices".* FROM "invoices" WHERE "invoices"."id" = 4 LIMIT 1 /*application='Invoiceforge'*/[0m
+  ↳ app/models/line_item.rb:69:in 'LineItem#update_invoice_totals'
+  [1m[36mLineItem Load (0.6ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 4 AND "line_items"."item_type" = 'item' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:97:in 'Invoice#recalculate_totals!'
+  [1m[36mLineItem Load (0.6ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 4 AND "line_items"."item_type" = 'discount' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:98:in 'Invoice#recalculate_totals!'
+  [1m[36mInvoice Update (0.7ms)[0m  [1m[33mUPDATE "invoices" SET "subtotal" = 0.0, "total_discount" = 0.0, "total" = 0.0 WHERE "invoices"."id" = 4 /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:101:in 'Invoice#recalculate_totals!'
+  [1m[36mTRANSACTION (10.9ms)[0m  [1m[35mCOMMIT /*application='Invoiceforge'*/[0m
+  [1m[36mInvoice Load (0.7ms)[0m  [1m[34mSELECT "invoices".* FROM "invoices" /*application='Invoiceforge'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN /*application='Invoiceforge'*/[0m
+  [1m[36mLineItem Load (3.0ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 1 /*application='Invoiceforge'*/[0m
+  [1m[36mInvoice Destroy (1.1ms)[0m  [1m[31mDELETE FROM "invoices" WHERE "invoices"."id" = 1 /*application='Invoiceforge'*/[0m
+  [1m[36mTRANSACTION (11.7ms)[0m  [1m[35mCOMMIT /*application='Invoiceforge'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN /*application='Invoiceforge'*/[0m
+  [1m[36mLineItem Load (2.5ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 2 /*application='Invoiceforge'*/[0m
+  [1m[36mInvoice Destroy (0.8ms)[0m  [1m[31mDELETE FROM "invoices" WHERE "invoices"."id" = 2 /*application='Invoiceforge'*/[0m
+  [1m[36mTRANSACTION (12.0ms)[0m  [1m[35mCOMMIT /*application='Invoiceforge'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN /*application='Invoiceforge'*/[0m
+  [1m[36mLineItem Load (2.7ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 3 /*application='Invoiceforge'*/[0m
+  [1m[36mInvoice Destroy (0.7ms)[0m  [1m[31mDELETE FROM "invoices" WHERE "invoices"."id" = 3 /*application='Invoiceforge'*/[0m
+  [1m[36mTRANSACTION (13.4ms)[0m  [1m[35mCOMMIT /*application='Invoiceforge'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN /*application='Invoiceforge'*/[0m
+  [1m[36mLineItem Load (2.9ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 4 /*application='Invoiceforge'*/[0m
+  [1m[36mInvoice Destroy (0.8ms)[0m  [1m[31mDELETE FROM "invoices" WHERE "invoices"."id" = 4 /*application='Invoiceforge'*/[0m
+  [1m[36mTRANSACTION (13.2ms)[0m  [1m[35mCOMMIT /*application='Invoiceforge'*/[0m
+  [1m[36mClient Load (1.6ms)[0m  [1m[34mSELECT "clients".* FROM "clients" /*application='Invoiceforge'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='Invoiceforge'*/[0m
+  [1m[36mInvoice Exists? (2.4ms)[0m  [1m[34mSELECT 1 AS one FROM "invoices" WHERE "invoices"."client_id" = 1 LIMIT 1 /*application='Invoiceforge'*/[0m
+  [1m[36mClient Destroy (0.8ms)[0m  [1m[31mDELETE FROM "clients" WHERE "clients"."id" = 1 /*application='Invoiceforge'*/[0m
+  [1m[36mTRANSACTION (7.2ms)[0m  [1m[35mCOMMIT /*application='Invoiceforge'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='Invoiceforge'*/[0m
+  [1m[36mInvoice Exists? (2.2ms)[0m  [1m[34mSELECT 1 AS one FROM "invoices" WHERE "invoices"."client_id" = 2 LIMIT 1 /*application='Invoiceforge'*/[0m
+  [1m[36mClient Destroy (0.6ms)[0m  [1m[31mDELETE FROM "clients" WHERE "clients"."id" = 2 /*application='Invoiceforge'*/[0m
+  [1m[36mTRANSACTION (7.5ms)[0m  [1m[35mCOMMIT /*application='Invoiceforge'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='Invoiceforge'*/[0m
+  [1m[36mInvoice Exists? (2.3ms)[0m  [1m[34mSELECT 1 AS one FROM "invoices" WHERE "invoices"."client_id" = 3 LIMIT 1 /*application='Invoiceforge'*/[0m
+  [1m[36mClient Destroy (0.5ms)[0m  [1m[31mDELETE FROM "clients" WHERE "clients"."id" = 3 /*application='Invoiceforge'*/[0m
+  [1m[36mTRANSACTION (4.6ms)[0m  [1m[35mCOMMIT /*application='Invoiceforge'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN /*application='Invoiceforge'*/[0m
+  [1m[36mClient Create (2.8ms)[0m  [1m[32mINSERT INTO "clients" ("name", "email", "company", "address", "phone", "city", "country", "postal_code", "notes", "created_at", "updated_at") VALUES ('Acme Corporation', 'billing@acme.corp', 'Acme Corporation Pte Ltd', '123 Business Park, #10-01, Singapore 123456', '+65 6123 4567', NULL, NULL, NULL, 'Net 30 payment terms preferred', '2025-12-15 01:15:31.272341', '2025-12-15 01:15:31.272341') RETURNING "id" /*application='Invoiceforge'*/[0m
+  [1m[36mTRANSACTION (9.6ms)[0m  [1m[35mCOMMIT /*application='Invoiceforge'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN /*application='Invoiceforge'*/[0m
+  [1m[36mClient Create (2.8ms)[0m  [1m[32mINSERT INTO "clients" ("name", "email", "company", "address", "phone", "city", "country", "postal_code", "notes", "created_at", "updated_at") VALUES ('Startup Labs', 'finance@startuplabs.io', 'Startup Labs Pte Ltd', '456 Innovation Drive, Singapore 654321', '+65 6987 6543', NULL, NULL, NULL, NULL, '2025-12-15 01:15:31.305586', '2025-12-15 01:15:31.305586') RETURNING "id" /*application='Invoiceforge'*/[0m
+  [1m[36mTRANSACTION (9.4ms)[0m  [1m[35mCOMMIT /*application='Invoiceforge'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN /*application='Invoiceforge'*/[0m
+  [1m[36mClient Create (2.6ms)[0m  [1m[32mINSERT INTO "clients" ("name", "email", "company", "address", "phone", "city", "country", "postal_code", "notes", "created_at", "updated_at") VALUES ('Global Ventures', 'accounts@globalventures.com', 'Global Ventures Holdings', '789 Commerce Tower, Singapore 789012', NULL, NULL, NULL, NULL, NULL, '2025-12-15 01:15:31.341108', '2025-12-15 01:15:31.341108') RETURNING "id" /*application='Invoiceforge'*/[0m
+  [1m[36mTRANSACTION (4.9ms)[0m  [1m[35mCOMMIT /*application='Invoiceforge'*/[0m
+  [1m[36mClient Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "clients" /*application='Invoiceforge'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN /*application='Invoiceforge'*/[0m
+  [1m[36mInvoice Exists? (2.8ms)[0m  [1m[34mSELECT 1 AS one FROM "invoices" WHERE LOWER("invoices"."invoice_number") = LOWER('2025-0001') LIMIT 1 /*application='Invoiceforge'*/[0m
+  [1m[36mInvoice Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "invoices" WHERE "invoices"."token" = 'Ehx6D1YYqIITBQo9i0NRUw' LIMIT 1 /*application='Invoiceforge'*/[0m
+  [1m[36mInvoice Create (1.3ms)[0m  [1m[32mINSERT INTO "invoices" ("client_id", "invoice_number", "status", "issue_date", "due_date", "notes", "token", "subtotal", "total_discount", "total", "created_at", "updated_at") VALUES (4, '2025-0001', 'pending', '2025-01-15', '2025-02-14', 'Thank you for your business!', 'Ehx6D1YYqIITBQo9i0NRUw', 0.0, 0.0, 0.0, '2025-12-15 01:15:31.398686', '2025-12-15 01:15:31.398686') RETURNING "id" /*application='Invoiceforge'*/[0m
+  [1m[36mLineItem Load (0.5ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 5 AND "line_items"."item_type" = 'item' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:97:in 'Invoice#recalculate_totals!'
+  [1m[36mLineItem Load (0.5ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 5 AND "line_items"."item_type" = 'discount' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:98:in 'Invoice#recalculate_totals!'
+  [1m[36mInvoice Update (0.9ms)[0m  [1m[33mUPDATE "invoices" SET "subtotal" = 0.0, "total_discount" = 0.0, "total" = 0.0 WHERE "invoices"."id" = 5 /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:101:in 'Invoice#recalculate_totals!'
+  [1m[36mTRANSACTION (8.2ms)[0m  [1m[35mCOMMIT /*application='Invoiceforge'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN /*application='Invoiceforge'*/[0m
+  [1m[36mLineItem Create (3.0ms)[0m  [1m[32mINSERT INTO "line_items" ("invoice_id", "item_type", "description", "quantity", "unit_type", "unit_price", "position", "created_at", "updated_at") VALUES (5, 'section', 'Development Services', NULL, NULL, NULL, 1, '2025-12-15 01:15:31.444673', '2025-12-15 01:15:31.444673') RETURNING "id" /*application='Invoiceforge'*/[0m
+  [1m[36mLineItem Load (0.5ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 5 AND "line_items"."item_type" = 'item' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:97:in 'Invoice#recalculate_totals!'
+  [1m[36mLineItem Load (0.5ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 5 AND "line_items"."item_type" = 'discount' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:98:in 'Invoice#recalculate_totals!'
+  [1m[36mInvoice Update (0.5ms)[0m  [1m[33mUPDATE "invoices" SET "subtotal" = 0.0, "total_discount" = 0.0, "total" = 0.0 WHERE "invoices"."id" = 5 /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:101:in 'Invoice#recalculate_totals!'
+  [1m[36mTRANSACTION (8.9ms)[0m  [1m[35mCOMMIT /*application='Invoiceforge'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN /*application='Invoiceforge'*/[0m
+  [1m[36mLineItem Create (2.6ms)[0m  [1m[32mINSERT INTO "line_items" ("invoice_id", "item_type", "description", "quantity", "unit_type", "unit_price", "position", "created_at", "updated_at") VALUES (5, 'item', 'Frontend Development - Dashboard Module', 24.0, 'hours', 150.0, 2, '2025-12-15 01:15:31.472346', '2025-12-15 01:15:31.472346') RETURNING "id" /*application='Invoiceforge'*/[0m
+  [1m[36mLineItem Load (0.6ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 5 AND "line_items"."item_type" = 'item' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:97:in 'Invoice#recalculate_totals!'
+  [1m[36mLineItem Load (0.5ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 5 AND "line_items"."item_type" = 'discount' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:98:in 'Invoice#recalculate_totals!'
+  [1m[36mInvoice Update (0.6ms)[0m  [1m[33mUPDATE "invoices" SET "subtotal" = 3600.0, "total_discount" = 0.0, "total" = 3600.0 WHERE "invoices"."id" = 5 /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:101:in 'Invoice#recalculate_totals!'
+  [1m[36mTRANSACTION (5.1ms)[0m  [1m[35mCOMMIT /*application='Invoiceforge'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='Invoiceforge'*/[0m
+  [1m[36mLineItem Create (3.0ms)[0m  [1m[32mINSERT INTO "line_items" ("invoice_id", "item_type", "description", "quantity", "unit_type", "unit_price", "position", "created_at", "updated_at") VALUES (5, 'item', 'API Integration', 16.0, 'hours', 150.0, 3, '2025-12-15 01:15:31.490289', '2025-12-15 01:15:31.490289') RETURNING "id" /*application='Invoiceforge'*/[0m
+  [1m[36mLineItem Load (0.8ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 5 AND "line_items"."item_type" = 'item' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:97:in 'Invoice#recalculate_totals!'
+  [1m[36mLineItem Load (0.7ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 5 AND "line_items"."item_type" = 'discount' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:98:in 'Invoice#recalculate_totals!'
+  [1m[36mInvoice Update (0.5ms)[0m  [1m[33mUPDATE "invoices" SET "subtotal" = 6000.0, "total_discount" = 0.0, "total" = 6000.0 WHERE "invoices"."id" = 5 /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:101:in 'Invoice#recalculate_totals!'
+  [1m[36mTRANSACTION (12.5ms)[0m  [1m[35mCOMMIT /*application='Invoiceforge'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN /*application='Invoiceforge'*/[0m
+  [1m[36mLineItem Create (2.6ms)[0m  [1m[32mINSERT INTO "line_items" ("invoice_id", "item_type", "description", "quantity", "unit_type", "unit_price", "position", "created_at", "updated_at") VALUES (5, 'section', 'Additional Services', NULL, NULL, NULL, 4, '2025-12-15 01:15:31.524600', '2025-12-15 01:15:31.524600') RETURNING "id" /*application='Invoiceforge'*/[0m
+  [1m[36mLineItem Load (0.6ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 5 AND "line_items"."item_type" = 'item' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:97:in 'Invoice#recalculate_totals!'
+  [1m[36mLineItem Load (0.5ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 5 AND "line_items"."item_type" = 'discount' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:98:in 'Invoice#recalculate_totals!'
+  [1m[36mInvoice Update (0.4ms)[0m  [1m[33mUPDATE "invoices" SET "subtotal" = 6000.0, "total_discount" = 0.0, "total" = 6000.0 WHERE "invoices"."id" = 5 /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:101:in 'Invoice#recalculate_totals!'
+  [1m[36mTRANSACTION (7.8ms)[0m  [1m[35mCOMMIT /*application='Invoiceforge'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN /*application='Invoiceforge'*/[0m
+  [1m[36mLineItem Create (3.0ms)[0m  [1m[32mINSERT INTO "line_items" ("invoice_id", "item_type", "description", "quantity", "unit_type", "unit_price", "position", "created_at", "updated_at") VALUES (5, 'item', 'Technical Consultation', 2.0, 'hours', 200.0, 5, '2025-12-15 01:15:31.546607', '2025-12-15 01:15:31.546607') RETURNING "id" /*application='Invoiceforge'*/[0m
+  [1m[36mLineItem Load (0.6ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 5 AND "line_items"."item_type" = 'item' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:97:in 'Invoice#recalculate_totals!'
+  [1m[36mLineItem Load (0.5ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 5 AND "line_items"."item_type" = 'discount' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:98:in 'Invoice#recalculate_totals!'
+  [1m[36mInvoice Update (0.6ms)[0m  [1m[33mUPDATE "invoices" SET "subtotal" = 6400.0, "total_discount" = 0.0, "total" = 6400.0 WHERE "invoices"."id" = 5 /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:101:in 'Invoice#recalculate_totals!'
+  [1m[36mTRANSACTION (4.2ms)[0m  [1m[35mCOMMIT /*application='Invoiceforge'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN /*application='Invoiceforge'*/[0m
+  [1m[36mLineItem Create (2.5ms)[0m  [1m[32mINSERT INTO "line_items" ("invoice_id", "item_type", "description", "quantity", "unit_type", "unit_price", "position", "created_at", "updated_at") VALUES (5, 'discount', 'Loyalty Discount (5%)', 1.0, 'fixed', -320.0, 6, '2025-12-15 01:15:31.567107', '2025-12-15 01:15:31.567107') RETURNING "id" /*application='Invoiceforge'*/[0m
+  [1m[36mLineItem Load (0.5ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 5 AND "line_items"."item_type" = 'item' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:97:in 'Invoice#recalculate_totals!'
+  [1m[36mLineItem Load (0.7ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 5 AND "line_items"."item_type" = 'discount' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:98:in 'Invoice#recalculate_totals!'
+  [1m[36mInvoice Update (0.7ms)[0m  [1m[33mUPDATE "invoices" SET "subtotal" = 6400.0, "total_discount" = 320.0, "total" = 6080.0 WHERE "invoices"."id" = 5 /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:101:in 'Invoice#recalculate_totals!'
+  [1m[36mTRANSACTION (8.0ms)[0m  [1m[35mCOMMIT /*application='Invoiceforge'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN /*application='Invoiceforge'*/[0m
+  [1m[36mInvoice Exists? (2.9ms)[0m  [1m[34mSELECT 1 AS one FROM "invoices" WHERE LOWER("invoices"."invoice_number") = LOWER('2025-0002') LIMIT 1 /*application='Invoiceforge'*/[0m
+  [1m[36mInvoice Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "invoices" WHERE "invoices"."token" = 'w5IVN_SwWPB52_98F6KXWw' LIMIT 1 /*application='Invoiceforge'*/[0m
+  [1m[36mInvoice Create (1.1ms)[0m  [1m[32mINSERT INTO "invoices" ("client_id", "invoice_number", "status", "issue_date", "due_date", "notes", "token", "subtotal", "total_discount", "total", "created_at", "updated_at") VALUES (5, '2025-0002', 'draft', '2025-01-20', '2025-02-19', NULL, 'w5IVN_SwWPB52_98F6KXWw', 0.0, 0.0, 0.0, '2025-12-15 01:15:31.599307', '2025-12-15 01:15:31.599307') RETURNING "id" /*application='Invoiceforge'*/[0m
+  [1m[36mLineItem Load (1.0ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 6 AND "line_items"."item_type" = 'item' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:97:in 'Invoice#recalculate_totals!'
+  [1m[36mLineItem Load (0.5ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 6 AND "line_items"."item_type" = 'discount' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:98:in 'Invoice#recalculate_totals!'
+  [1m[36mInvoice Update (0.6ms)[0m  [1m[33mUPDATE "invoices" SET "subtotal" = 0.0, "total_discount" = 0.0, "total" = 0.0 WHERE "invoices"."id" = 6 /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:101:in 'Invoice#recalculate_totals!'
+  [1m[36mTRANSACTION (3.6ms)[0m  [1m[35mCOMMIT /*application='Invoiceforge'*/[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mBEGIN /*application='Invoiceforge'*/[0m
+  [1m[36mLineItem Create (2.6ms)[0m  [1m[32mINSERT INTO "line_items" ("invoice_id", "item_type", "description", "quantity", "unit_type", "unit_price", "position", "created_at", "updated_at") VALUES (6, 'item', 'UI/UX Design - Mobile App', 3.0, 'days', 800.0, 1, '2025-12-15 01:15:31.643634', '2025-12-15 01:15:31.643634') RETURNING "id" /*application='Invoiceforge'*/[0m
+  [1m[36mLineItem Load (0.5ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 6 AND "line_items"."item_type" = 'item' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:97:in 'Invoice#recalculate_totals!'
+  [1m[36mLineItem Load (0.5ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 6 AND "line_items"."item_type" = 'discount' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:98:in 'Invoice#recalculate_totals!'
+  [1m[36mInvoice Update (0.4ms)[0m  [1m[33mUPDATE "invoices" SET "subtotal" = 2400.0, "total_discount" = 0.0, "total" = 2400.0 WHERE "invoices"."id" = 6 /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:101:in 'Invoice#recalculate_totals!'
+  [1m[36mTRANSACTION (8.5ms)[0m  [1m[35mCOMMIT /*application='Invoiceforge'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN /*application='Invoiceforge'*/[0m
+  [1m[36mInvoice Exists? (6.2ms)[0m  [1m[34mSELECT 1 AS one FROM "invoices" WHERE LOWER("invoices"."invoice_number") = LOWER('2024-0012') LIMIT 1 /*application='Invoiceforge'*/[0m
+  [1m[36mInvoice Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "invoices" WHERE "invoices"."token" = 'jdIWqIQqxd4gQ0GCtly1IA' LIMIT 1 /*application='Invoiceforge'*/[0m
+  [1m[36mInvoice Create (0.6ms)[0m  [1m[32mINSERT INTO "invoices" ("client_id", "invoice_number", "status", "issue_date", "due_date", "notes", "token", "subtotal", "total_discount", "total", "created_at", "updated_at") VALUES (6, '2024-0012', 'paid', '2024-12-20', '2025-01-19', NULL, 'jdIWqIQqxd4gQ0GCtly1IA', 0.0, 0.0, 0.0, '2025-12-15 01:15:31.682298', '2025-12-15 01:15:31.682298') RETURNING "id" /*application='Invoiceforge'*/[0m
+  [1m[36mLineItem Load (0.7ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 7 AND "line_items"."item_type" = 'item' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:97:in 'Invoice#recalculate_totals!'
+  [1m[36mLineItem Load (0.5ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 7 AND "line_items"."item_type" = 'discount' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:98:in 'Invoice#recalculate_totals!'
+  [1m[36mInvoice Update (0.7ms)[0m  [1m[33mUPDATE "invoices" SET "subtotal" = 0.0, "total_discount" = 0.0, "total" = 0.0 WHERE "invoices"."id" = 7 /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:101:in 'Invoice#recalculate_totals!'
+  [1m[36mTRANSACTION (10.8ms)[0m  [1m[35mCOMMIT /*application='Invoiceforge'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN /*application='Invoiceforge'*/[0m
+  [1m[36mLineItem Create (4.6ms)[0m  [1m[32mINSERT INTO "line_items" ("invoice_id", "item_type", "description", "quantity", "unit_type", "unit_price", "position", "created_at", "updated_at") VALUES (7, 'item', 'Annual Retainer - Q4 2024', 1.0, 'fixed', 8000.0, 1, '2025-12-15 01:15:31.717778', '2025-12-15 01:15:31.717778') RETURNING "id" /*application='Invoiceforge'*/[0m
+  [1m[36mLineItem Load (0.8ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 7 AND "line_items"."item_type" = 'item' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:97:in 'Invoice#recalculate_totals!'
+  [1m[36mLineItem Load (0.8ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 7 AND "line_items"."item_type" = 'discount' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:98:in 'Invoice#recalculate_totals!'
+  [1m[36mInvoice Update (0.7ms)[0m  [1m[33mUPDATE "invoices" SET "subtotal" = 8000.0, "total_discount" = 0.0, "total" = 8000.0 WHERE "invoices"."id" = 7 /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:101:in 'Invoice#recalculate_totals!'
+  [1m[36mTRANSACTION (14.2ms)[0m  [1m[35mCOMMIT /*application='Invoiceforge'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN /*application='Invoiceforge'*/[0m
+  [1m[36mInvoice Exists? (2.8ms)[0m  [1m[34mSELECT 1 AS one FROM "invoices" WHERE LOWER("invoices"."invoice_number") = LOWER('2024-0010') LIMIT 1 /*application='Invoiceforge'*/[0m
+  [1m[36mInvoice Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "invoices" WHERE "invoices"."token" = '-FlqlZjs75HBgH8tgZWM9g' LIMIT 1 /*application='Invoiceforge'*/[0m
+  [1m[36mInvoice Create (1.2ms)[0m  [1m[32mINSERT INTO "invoices" ("client_id", "invoice_number", "status", "issue_date", "due_date", "notes", "token", "subtotal", "total_discount", "total", "created_at", "updated_at") VALUES (4, '2024-0010', 'pending', '2024-11-15', '2024-12-15', NULL, '-FlqlZjs75HBgH8tgZWM9g', 0.0, 0.0, 0.0, '2025-12-15 01:15:31.761184', '2025-12-15 01:15:31.761184') RETURNING "id" /*application='Invoiceforge'*/[0m
+  [1m[36mLineItem Load (0.8ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 8 AND "line_items"."item_type" = 'item' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:97:in 'Invoice#recalculate_totals!'
+  [1m[36mLineItem Load (0.7ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 8 AND "line_items"."item_type" = 'discount' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:98:in 'Invoice#recalculate_totals!'
+  [1m[36mInvoice Update (0.7ms)[0m  [1m[33mUPDATE "invoices" SET "subtotal" = 0.0, "total_discount" = 0.0, "total" = 0.0 WHERE "invoices"."id" = 8 /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:101:in 'Invoice#recalculate_totals!'
+  [1m[36mTRANSACTION (4.4ms)[0m  [1m[35mCOMMIT /*application='Invoiceforge'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN /*application='Invoiceforge'*/[0m
+  [1m[36mLineItem Create (3.0ms)[0m  [1m[32mINSERT INTO "line_items" ("invoice_id", "item_type", "description", "quantity", "unit_type", "unit_price", "position", "created_at", "updated_at") VALUES (8, 'item', 'Maintenance & Support - November', 10.0, 'hours', 120.0, 1, '2025-12-15 01:15:31.778042', '2025-12-15 01:15:31.778042') RETURNING "id" /*application='Invoiceforge'*/[0m
+  [1m[36mLineItem Load (0.8ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 8 AND "line_items"."item_type" = 'item' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:97:in 'Invoice#recalculate_totals!'
+  [1m[36mLineItem Load (1.1ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 8 AND "line_items"."item_type" = 'discount' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:98:in 'Invoice#recalculate_totals!'
+  [1m[36mInvoice Update (0.8ms)[0m  [1m[33mUPDATE "invoices" SET "subtotal" = 1200.0, "total_discount" = 0.0, "total" = 1200.0 WHERE "invoices"."id" = 8 /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:101:in 'Invoice#recalculate_totals!'
+  [1m[36mTRANSACTION (7.0ms)[0m  [1m[35mCOMMIT /*application='Invoiceforge'*/[0m
+  [1m[36mInvoice Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "invoices" /*application='Invoiceforge'*/[0m
+  [1m[36mLineItem Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "line_items" /*application='Invoiceforge'*/[0m
+  [1m[36mInvoice Load (2.6ms)[0m  [1m[34mSELECT "invoices".* FROM "invoices" ORDER BY "invoices"."id" ASC LIMIT 1000 /*application='Invoiceforge'*/[0m
+  [1m[36mLineItem Load (0.7ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 5 AND "line_items"."item_type" = 'item' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:97:in 'Invoice#recalculate_totals!'
+  [1m[36mLineItem Load (0.5ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 5 AND "line_items"."item_type" = 'discount' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:98:in 'Invoice#recalculate_totals!'
+  [1m[36mInvoice Update (13.3ms)[0m  [1m[33mUPDATE "invoices" SET "subtotal" = 6400.0, "total_discount" = 320.0, "total" = 6080.0 WHERE "invoices"."id" = 5 /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:101:in 'Invoice#recalculate_totals!'
+  [1m[36mLineItem Load (1.1ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 6 AND "line_items"."item_type" = 'item' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:97:in 'Invoice#recalculate_totals!'
+  [1m[36mLineItem Load (0.7ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 6 AND "line_items"."item_type" = 'discount' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:98:in 'Invoice#recalculate_totals!'
+  [1m[36mInvoice Update (5.2ms)[0m  [1m[33mUPDATE "invoices" SET "subtotal" = 2400.0, "total_discount" = 0.0, "total" = 2400.0 WHERE "invoices"."id" = 6 /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:101:in 'Invoice#recalculate_totals!'
+  [1m[36mLineItem Load (0.6ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 7 AND "line_items"."item_type" = 'item' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:97:in 'Invoice#recalculate_totals!'
+  [1m[36mLineItem Load (0.4ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 7 AND "line_items"."item_type" = 'discount' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:98:in 'Invoice#recalculate_totals!'
+  [1m[36mInvoice Update (7.4ms)[0m  [1m[33mUPDATE "invoices" SET "subtotal" = 8000.0, "total_discount" = 0.0, "total" = 8000.0 WHERE "invoices"."id" = 7 /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:101:in 'Invoice#recalculate_totals!'
+  [1m[36mLineItem Load (0.7ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 8 AND "line_items"."item_type" = 'item' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:97:in 'Invoice#recalculate_totals!'
+  [1m[36mLineItem Load (0.5ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."invoice_id" = 8 AND "line_items"."item_type" = 'discount' /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:98:in 'Invoice#recalculate_totals!'
+  [1m[36mInvoice Update (6.5ms)[0m  [1m[33mUPDATE "invoices" SET "subtotal" = 1200.0, "total_discount" = 0.0, "total" = 1200.0 WHERE "invoices"."id" = 8 /*application='Invoiceforge'*/[0m
+  ↳ app/models/invoice.rb:101:in 'Invoice#recalculate_totals!'
+  [1m[36mUser Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" /*application='Invoiceforge'*/[0m
+  [1m[36mClient Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "clients" /*application='Invoiceforge'*/[0m
+  [1m[36mInvoice Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "invoices" /*application='Invoiceforge'*/[0m
+  [1m[36mLineItem Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "line_items" /*application='Invoiceforge'*/[0m
